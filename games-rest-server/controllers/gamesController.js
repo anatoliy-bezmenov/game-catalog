@@ -1,65 +1,70 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const gamesService = require('../services/gamesService');
-const { getErrorMessage } = require('../utils/errorUtils');
-const { isAuth } = require('../middlewares/authMiddeware');
+const gamesService = require("../services/gamesService");
+const { getErrorMessage } = require("../utils/errorUtils");
+const { isAuth } = require("../middlewares/authMiddeware");
 
-router.get('/', async (req, res) => {
-    const games = await gamesService.getAll().lean();
-    res.end(JSON.stringify(games), null, 2)
+router.get("/", async (req, res) => {
+  const games = await gamesService.getAll().lean();
+  res.json(games);
 });
 
 
-router.post('/create', isAuth, async (req, res) => {
-    const themeData = req.body;
-
-    try {
-        await gamesService.create(req.user._id, themeData);
-        res.end(JSON.stringify(req.body, null, 2))
-    } catch(err) {
-        res.end(JSON.stringify(err))
+router.post("/create", isAuth, async (req, res) => {
+  const gameData = req.body;
+  try {
+    if (!req.user) {
+      throw new Error("Unauthorized");
     }
+    await gamesService.create(req.user._id, gameData);
+    res.json(req.body);
+  } catch (err) {
+    res.status(404).json({ error: getErrorMessage(err) });
+  }
 });
 
-router.get('/:gamesId/edit', isGamesOwner, async (req, res) => {
-    const gamesData = req.body;
-    const editedGame = await gamesService.edit(req.params.gamesId, gamesData);
+router.get("/:gamesId/edit", isAuth,  isGamesOwner, async (req, res) => {
+  const gamesData = req.body;
 
-    res.end(JSON.stringify(editedGame));
+  try {
+    const editedGame = await gamesService.update(req.params.gamesId, gamesData);
+    res.json(editedGame); 
+  } catch(err) {
+    res.status(404).json({ error: getErrorMessage(err) });
+  }
+
 });
 
-router.post('/:gamesId/edit', isGamesOwner, async (req, res) => {
-    const gamesData = req.body;
+router.post("/:gamesId/update", isAuth,  isGamesOwner, async (req, res) => {
+  const gamesData = req.body;
 
-    try {
-        await gamesService.edit(req.params.gamesId, gamesData);
-        res.end(JSON.stringify(gamesData, null, 2))
-    } catch(err) {
-        res.end(JSON.stringify(err));
-    };
+  try {
+    const editedGame = await gamesService.update(req.params.gamesId, gamesData);
+    res.json(editedGame); 
+  } catch (err) {
+    res.status(404).json({ error: getErrorMessage(err) });
+  }
 });
 
+router.get("/:gamesId/details", async (req, res) => {
+  const games = await gamesService.getOneDetailed(req.params.gamesId).lean();
+  const isOwner = games.owner && games.owner._id == req.user?._id;
 
-router.get('/:gamesId/details', async (req, res) => {
-    const games = await gamesService.getOneDetailed(req.params.gamesId).lean();
-
-    // const isOwner = games.owner && games.owner._id == req.user?._id;
-
-    res.end(JSON.stringify(games));
+  res.json({ ...games, isOwner });
 });
 
-router.get('/:gamesId/delete', isGamesOwner, async (req, res) => {
-    const games = await gamesService.delete(req.params.gamesId);
-    res.end(JSON.stringify(games))
-})
+router.get("/:gamesId/delete", isAuth , isGamesOwner, async (req, res) => {
+  const games = await gamesService.delete(req.params.gamesId);
+  res.json(games);
+});
 
 async function isGamesOwner(req, res, next) {
-    const games = await gamesService.getOne(req.params.gamesId).lean();
+  const games = await gamesService.getOneDetailed(req.params.gamesId).lean();
 
-    if (games.owner != req.user?._id) {
-        // return res.redirect(`/stones/${req.params.stonesId}/details`);
-    };
-    next();
-};
+  if (games?.owner?._id != req.user?._id) {
+    return res.status(401).json({ error: "Unauthorized owner" });
+  }
+  next();
+}
 
 module.exports = router;

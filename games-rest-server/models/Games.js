@@ -16,6 +16,22 @@ const gamesSchemma = new mongoose.Schema({
         match: [/^https?:\/\//, 'Invalid image url'],
         required: true,
     },
+    publisher: {
+        type: String,
+        minLength: [1, 'Publisher should be at least 1 character'],
+        required: true,
+    },
+    year: {
+        type: Number,
+        required: true,
+        min: [1950, 'Minimum year should be 1950'],
+        max: [2024, 'Maximum year should be 2024'],
+    },
+    console: {
+        type: String,
+        minLength: [1, 'Console should be at least 1 character'],
+        required: true
+    },
     description: {
         type: String,
         minLength: [10, 'Description should be at least 10 characters'],

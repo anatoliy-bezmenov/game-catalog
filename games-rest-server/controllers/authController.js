@@ -1,46 +1,38 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const authService = require('../services/authService');
+const authService = require("../services/authService");
 
-const { isAuth, isGuest } = require('../middlewares/authMiddeware');
+const { getErrorMessage } = require('../utils/errorUtils');
 
-router.post('/register', isGuest, async (req, res) => {
-    const userData = req.body;
+const { isAuth, isGuest } = require("../middlewares/authMiddeware");
 
-    try {
-        const token = await authService.register(userData);
-        
-        res.cookie('auth', token);
-        res.end(JSON.stringify(req.body, null, 2))
-    } catch(err) {
-        res.end(JSON.stringify(err))
+router.post("/register", isGuest, async (req, res) => {
+  const userData = req.body;
+
+  try {
+    const token = await authService.register(userData);
+    const result = {
+      token: token,
+      name: userData.name,
+      email: userData.email,
     }
+    res.json(result);
+  } catch (err) {
+    res.status(404).json({ error: getErrorMessage(err) });
+  }
 });
 
-router.post('/login', isGuest, async (req, res) => {
-    const { email, password } = req.body;
+router.post("/login", isGuest, async (req, res) => {
+  const { email, password } = req.body;
 
-    try {
-        const token = await authService.login(email, password);
+  try {
+    const resData = await authService.login(email, password);
+
     
-        res.cookie('auth', token)
-        
-        const resData = {
-            token: token,
-        }
-        res.end(JSON.stringify(resData));
-        // res.end(JSON.stringify(req.body, null, 2))
-        
-
-    } catch(err) {
-        res.end(JSON.stringify(err))
-    };
-
-});
-
-
-router.post('/logout', isAuth, (req, res) => {
-    res.clearCookie('auth');
+    res.json(resData);
+  } catch (err) {
+    res.status(404).json({ error: getErrorMessage(err) });
+  }
 });
 
 module.exports = router;
