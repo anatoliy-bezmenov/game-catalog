@@ -1,0 +1,14 @@
+<aside class="page-sidebar">
+    <div  *ngIf="isLoggedIn">
+        <div>Greetings, {{username}}</div>
+        <p><a [routerLink]="'/logout'">Logout</a> &nbsp;</p>
+        <p><a [routerLink]="'/games/create'">Create Game</a></p>
+    </div>
+    <p><a [routerLink]="'/'">Home</a> &nbsp;</p>
+    <p><a [routerLink]="'/games'">Games</a> &nbsp;</p>
+    <p><a [routerLink]="'/search'">Search</a> &nbsp;</p>
+    <div *ngIf="!isLoggedIn">
+        <p><a [routerLink]="'/login'">Login</a> &nbsp;</p>
+        <p><a [routerLink]="'/register'">Register</a> &nbsp;</p>
+    </div>
+</aside>

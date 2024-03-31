@@ -1,0 +1,176 @@
+<div class="">
+  <h1>Register</h1>
+
+  <div class="">
+    <div class="">
+      <form [formGroup]="reactiveForm" #form="ngForm">
+        <div class="">
+          <div class="">
+            <label for="name" class="">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              formControlName="name"
+              placeholder="Your name"
+              required
+              minlength="1"
+              maxlength="250"
+              class="nes-input"
+              [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+            />
+            <div
+              *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="nes-text is-error"
+            >
+              <div *ngIf="name.errors?.['required']">
+                This field is required.
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                This field must have at least 1 character.
+              </div>
+              <div *ngIf="name.errors?.['maxlength']">
+                This field must have at most 250 characters.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="">
+            <label for="email" class="">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              formControlName="email"
+              placeholder="your-name@gmail.com"
+              required
+              minlength="1"
+              maxlength="250"
+              class="nes-input"
+              [class.is-invalid]="email.invalid && (email.dirty || email.touched)"/>
+            <div
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+              class="nes-text is-error"
+            >
+              <div *ngIf="email.errors?.['required']">
+                This field is required.
+              </div>
+              <!-- <div *ngIf="email.errors?.['pattern']">
+                Invalid email address.
+              </div> -->
+              <div *ngIf="email.errors?.['minlength']">
+                This field must have at least 1 character.
+              </div>
+              <div *ngIf="email.errors?.['maxlength']">
+                This field must have at most 250 characters.
+              </div>
+              <div
+                *ngIf="!email.errors?.['required'] && !email.errors?.['minlength'] && !email.errors?.['maxlength'] && email.errors?.['emailValidator']"
+              >
+                Invalid email format.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="">
+            <label for="password" class="">Password:</label>
+            <div class="input-group input-group-sm has-validation">
+              <input
+                [type]="user.showPassword ? 'text' : 'password'"
+                id="password"
+                name="password"
+                formControlName="password"
+                required
+                minlength="6"
+                class="nes-input"
+                [class.is-invalid]="
+                  password.invalid && (password.dirty || password.touched)
+                "
+              />
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="user.showPassword = !user.showPassword"
+              >
+                <i
+                  class="nes-btn is-primary"
+                  [ngClass]="{
+                    'bi-eye-fill': !user.showPassword,
+                    'bi-eye-slash-fill': user.showPassword
+                  }"
+                ></i> Show password
+              </button>
+              <div
+                *ngIf="password.invalid && (password.dirty || password.touched)"
+                class="nes-text is-error"
+              >
+                <div *ngIf="password.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="password.errors?.['minlength']">
+                  This field must have at least 6 characters.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="">
+            <label for="rePassword" class="">Repeat Password:</label>
+            <div class="">
+              <input
+                [type]="user.showRePassword ? 'text' : 'password'"
+                id="rePassword"
+                name="rePassword"
+                formControlName="rePassword"
+                required
+                minlength="6"
+                class="nes-input"
+                [class.is-invalid]="
+                  rePassword.invalid && (rePassword.dirty || rePassword.touched)
+                "
+              />
+              <button
+                type="button"
+                class=""
+                (click)="user.showRePassword = !user.showRePassword">
+                <i class="nes-btn is-primary" [ngClass]="{'bi-eye-fill': !user.showRePassword, 'bi-eye-slash-fill': user.showRePassword}"></i>
+              Show re-password </button>
+              <div
+                *ngIf="rePassword.invalid && (rePassword.dirty || rePassword.touched)"
+                class="nes-text is-error"
+              >
+                <div *ngIf="rePassword.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="rePassword.errors?.['minlength']">
+                  This field must have at least 6 characters.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="">
+            <button type="button" class="nes-btn is-success" (click)="register()">Register</button>
+            <button type="button" class="nes-btn" (click)="validate()"> Validate </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p></p>
+    <p class="">
+        Already have an account? <a routerLink="/login">Login</a>
+    </p>
+
+</div>
+
+

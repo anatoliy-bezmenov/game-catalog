@@ -1,0 +1,27 @@
+<div  *ngIf="!isLoggedIn">
+  <p class="">
+    Go to:
+    <a routerLink="/login">Login</a>
+  </p>
+  <p class="">
+    Go to:
+    <a routerLink="/register">Register</a>
+  </p>
+</div>
+
+<div  *ngIf="isLoggedIn">
+  <p>
+    Welcome, {{username}}!
+  </p>
+  <div>
+    <p>
+      This website is all about gaming!
+    </p>
+    <p>
+      You can browse games, read information about them and create new games.
+    </p>
+  </div>
+  <p>Go to <a [routerLink]="'/games'">Games</a> &nbsp;</p>
+
+  <img src="./../../assets/home.png" width="500" height="500" alt="Image Not Found!">
+</div>
