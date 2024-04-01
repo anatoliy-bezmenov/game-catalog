@@ -1,0 +1,37 @@
+<div class="">
+  <h1>Games</h1>
+  <div *ngIf="isLoading1">
+    <progress
+      id="progressBar"
+      class="nes-progress is-success"
+      value="{{ cnt }}"
+      max="100"
+    ></progress>
+  </div>
+
+  <div *ngIf="!isLoading1" class="">
+    <!-- content -->
+    <div class="">
+      <h4 class="">New Adventures Await</h4>
+
+      <div class="grid">
+        <span *ngFor="let game of games">
+          <a [routerLink]="'/games/' + game._id + '/details'">
+            <span>
+            <img src="{{ game.image }}" width="100%" />
+            <div class="name"><strong>{{ game.name }}</strong></div>
+            <div class="category">
+              {{ game.category }}
+            </div>      
+            <div class="year">
+              {{ game.year }}
+            </div>
+          </span>
+        </a>
+
+        </span>
+      </div>
+
+    </div>
+  </div>
+</div>

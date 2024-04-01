@@ -17,8 +17,23 @@ export class GamesService {
     }
 
     getGameById(id: string, token: string) {
-        return this.http.get<Game>(this.url + `games/${id}/details`, { headers: { Accept: 'application/json' } })
+        const headerObject = {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: token,
+        }
+        return this.http.get<Game>(this.url + `games/${id}/details`, { headers: headerObject })
     }
+
+    getGameByIdNoUser(id: string) {
+        const headerObject = {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+        return this.http.get<Game>(this.url + `games/${id}/details`, { headers: headerObject })
+    }
+
+    
 
     searchGame(name: string){
         return this.http.get<Game>(this.url + `search`)
