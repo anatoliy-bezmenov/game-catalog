@@ -1,0 +1,186 @@
+<div class="">
+    <h1>Edit Game</h1>
+  
+    <div class="">
+      <div class="">
+        <form [formGroup]="reactiveForm" #form="ngForm">
+          
+          <div class="">
+            <div class="nes-field is-inline">
+              <label for="name" class="">Name:</label>
+              <input type="text" id="name" name="name" formControlName="name" placeholder="Super Mario" required
+                minlength="1" maxlength="250" class="nes-input is-success"
+                [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+                 />
+            </div>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="nes-text is-error">
+              <div *ngIf="name.errors?.['required']">
+                This field is required.
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                This field must have at least 1 character.
+              </div>
+              <div *ngIf="name.errors?.['maxlength']">
+                This field must have at most 250 characters.
+              </div>
+            </div>
+          </div>
+  
+          <div class="">
+  
+            <div class="nes-field is-inline">
+              <label for="inline_field">Category</label>
+              <input type="text" id="category" name="category" formControlName="category" placeholder="Adventure" required
+                minlength="1" maxlength="250" class="nes-input is-success" [class.is-invalid]="
+                  category.invalid && (category.dirty || category.touched)
+                " />
+              </div>
+  
+              <div *ngIf="category.invalid && (category.dirty || category.touched)" class="nes-text is-error">
+                <div *ngIf="category.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="category.errors?.['minlength']">
+                  This field must have at least 1 character.
+                </div>
+                <div *ngIf="category.errors?.['maxlength']">
+                  This field must have at most 250 characters.
+                </div>
+            </div>
+          </div>
+  
+          <div class="">
+  
+            <div class="nes-field is-inline">
+              <label for="inline_field">Publisher</label>
+              <input type="text" id="publisher" name="publisher" formControlName="publisher" placeholder="Nintendo" required
+                minlength="1" maxlength="250" class="nes-input is-success" [class.is-invalid]="
+                  publisher.invalid && (publisher.dirty || publisher.touched)
+                " />
+              </div>
+  
+              <div *ngIf="publisher.invalid && (publisher.dirty || publisher.touched)" class="nes-text is-error">
+                <div *ngIf="publisher.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="publisher.errors?.['minlength']">
+                  This field must have at least 1 character.
+                </div>
+                <div *ngIf="publisher.errors?.['maxlength']">
+                  This field must have at most 250 characters.
+                </div>
+            </div>
+          </div>
+  
+          <div class="">
+  
+            <div class="nes-field is-inline">
+              <label for="inline_field">Year</label>
+              <input type="number" id="year" name="year" formControlName="year" placeholder="1985" required
+                min="1900" max="2024" class="nes-input is-success" [class.is-invalid]="
+                  year.invalid && (year.dirty || year.touched)
+                " />
+              </div>
+  
+              <div *ngIf="year.invalid && (year.dirty || year.touched)" class="nes-text is-error">
+                <div *ngIf="year.errors?.['required']">
+                  This field is required and must be a number.
+                </div>
+                <div *ngIf="year.errors?.['min']">
+                  Year must be at least 1900
+                </div>
+                <div *ngIf="year.errors?.['max']">
+                  Year cannot exceed 2024
+                </div>
+            </div>
+          </div>
+  
+          <div class="">
+  
+            <div class="nes-field is-inline">
+              <label for="inline_field">Console</label>
+              <input type="text" id="console" name="console" formControlName="console" placeholder="Nintendo Switch" required
+                minlength="1" maxlength="250" class="nes-input is-success" [class.is-invalid]=                
+                "console.invalid && (console.dirty || console.touched)" />
+              </div>
+  
+              <div *ngIf="console.invalid && (console.dirty || console.touched)" class="nes-text is-error">
+                <div *ngIf="console.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="console.errors?.['minlength']">
+                  This field must have at least 1 character.
+                </div>
+                <div *ngIf="console.errors?.['maxlength']">
+                  This field must have at most 250 characters.
+                </div>
+            </div>
+          </div>
+          
+  
+          <div class="">
+  
+            <div class="nes-field is-inline">
+              <label for="inline_field">Image</label>
+              <input type="text" id="image" name="image" formControlName="image" placeholder="https..." required
+                minlength="1" maxlength="250" class="nes-input is-success" [class.is-invalid]="
+                  image.invalid && (image.dirty || image.touched)
+                " />
+              </div>
+  
+              <div *ngIf="image.invalid && (image.dirty || image.touched)" class="nes-text is-error">
+                <div *ngIf="image.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="image.errors?.['pattern']">
+                  Must start with http and end in .png or .jpg
+                </div>
+                <div *ngIf="image.errors?.['minlength']">
+                  This field must have at least 1 character.
+                </div>
+                <div *ngIf="image.errors?.['maxlength']">
+                  This field must have at most 250 characters.
+                </div>
+            </div>
+          </div>
+  
+          <div class="">
+  
+            <div class="nes-field is-inline">
+              <label for="inline_field">Description</label>
+              <textarea type="text" id="description" name="description" formControlName="description" placeholder="A platformer game released in..." required
+                minlength="10" maxlength="250" class="nes-input is-success" [class.is-invalid]="
+                  description.invalid && (description.dirty || description.touched)
+                "></textarea>
+              </div>
+  
+              <div *ngIf="description.invalid && (description.dirty || description.touched)" class="nes-text is-error">
+                <div *ngIf="description.errors?.['required']">
+                  This field is required.
+                </div>
+                <div *ngIf="description.errors?.['minlength']">
+                  This field must have at least 10 characters.
+                </div>
+                <div *ngIf="description.errors?.['maxlength']">
+                  This field must have at most 250 characters.
+                </div>
+            </div>
+          </div>
+  
+          <div class="">
+            <div class="">
+              <button type="button" class="nes-btn is-success" (click)="validate()" (click)="saveGame()">
+                Save
+              </button>
+              <button type="button" class="nes-btn is-normal" (click)="onCancel()">
+                Reset Form
+              </button>
+              <a class="nes-btn is-normal" [routerLink]="'/games'">
+                Back To Games            
+            </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,46 @@
+<div class="">
+  <div class="">
+
+    <div id="details-wrapper">
+      <div id="img-wrapper">
+        <img src="{{game.image}}" width="350" height="350" />
+      </div>
+      <p id="details-title">Name: {{game.name}}</p>
+      <div id="info-wrapper">
+
+          <p>Category: <span id="details-formula">{{game.category}}</span></p>
+          <p>Publisher: <span id="details-formula">{{game.publisher}}</span></p>
+          <p>Console: <span id="details-formula">{{game.console}}</span></p>
+          <p>Year: <span id="details-formula">{{game.year}}</span></p>
+          <p>Description: <span id="details-description">{{game.description}}</span></p>
+      </div>
+
+      </div>
+  </div>
+
+  <a [routerLink]="'/games'">
+    <button type="button" class="nes-btn is-normal">
+      Back To Games
+    </button>
+  </a>
+
+  <a [routerLink]="'/search'">
+    <button type="button" class="nes-btn is-normal">
+      Search Games
+    </button>
+  </a>
+
+
+  <div *ngIf="isLoggedIn">
+    <div *ngIf="game.isOwner">
+        <a class="nes-btn is-normal" [routerLink]="'/games/' + game._id + '/edit'">      
+          Edit Game      
+        </a>
+        <a class="nes-btn is-error" (click)="deleteGameById(game._id)">
+          Delete  
+        </a>
+    </div>
+  </div>
+
+
+</div>
