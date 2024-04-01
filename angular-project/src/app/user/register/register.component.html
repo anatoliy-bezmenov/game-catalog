@@ -157,6 +157,12 @@
         </div>
 
         <div class="">
+          <div *ngIf="showError">
+            <div class="nes-container with-title is-centered">
+              <p class="nes-text is-error">Error</p>
+              <p class="nes-text is-error">{{errorMessage}}</p>
+            </div>
+          </div>
           <div class="">
             <button type="button" class="nes-btn is-success" (click)="register()">Register</button>
             <button type="button" class="nes-btn" (click)="validate()"> Validate </button>
