@@ -23,6 +23,12 @@ router.post("/create", isAuth, async (req, res) => {
   }
 });
 
+router.get("/search", async (req, res) => {
+  const query = req.query.q
+  const data = await gamesService.search(query)
+  res.json(data);
+})
+
 router.get("/:gamesId/edit", isAuth,  isGamesOwner, async (req, res) => {
   const gamesData = req.body;
 

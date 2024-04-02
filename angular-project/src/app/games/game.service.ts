@@ -36,7 +36,11 @@ export class GamesService {
     
 
     searchGame(name: string){
-        return this.http.get<Game>(this.url + `search`)
+        const headerObject = {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+        return this.http.get<Game[]>(this.url + `games/search`, { headers: headerObject, params: {q: name} })
     }
 
 
