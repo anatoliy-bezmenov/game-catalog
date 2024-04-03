@@ -101,7 +101,7 @@ export class RegisterComponent implements OnInit {
     const formBody = {
       email: this.user.email,
       name: this.user.name,
-      password: this.user.password, 
+      password: this.user.password,
       rePassword: this.user.rePassword,
     }
 
@@ -110,8 +110,10 @@ export class RegisterComponent implements OnInit {
       localStorage.setItem(this.USER_KEY, JSON.stringify(data));
       this.userService.token = data.token;
       this.router.navigate(['/']);
+    }, () => { // if user already exists show error message
+      this.showError = true;
+      this.errorMessage = 'User exists'
+      return;
     });
-
   }
-
 }
