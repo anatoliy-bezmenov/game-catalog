@@ -45,3 +45,6 @@ npm run start
 
 ### Open with browser
 http://localhost:4200
+
+![image](https://github.com/anatoliy-bezmenov/game-catalog/assets/121629919/65ef2d63-7a10-47f8-9b76-5f42b5d2d5a1)
+
